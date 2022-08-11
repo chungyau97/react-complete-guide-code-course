@@ -6,8 +6,19 @@ function AddUser() {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
   const addUserHandler = (event) => {
-    console.log(enteredUsername, enteredAge);
     event.preventDefault();
+    if (
+      enteredUsername.toString().trim().length === 0 ||
+      enteredAge.toString().trim().length === 0
+    ) {
+      return;
+    }
+    if (+enteredAge < 1) {
+      return;
+    }
+    console.log(enteredUsername, enteredAge);
+    setEnteredUsername("");
+    setEnteredAge("");
   };
   const usernameChangeHandler = (event) => {
     setEnteredUsername(event.target.value);
@@ -22,10 +33,16 @@ function AddUser() {
         <input
           id="username"
           type="text"
+          value={enteredUsername}
           onChange={usernameChangeHandler}
         ></input>
         <label htmlFor="age">Age (Years)</label>
-        <input id="age" type="number" onChange={ageChangeHandler}></input>
+        <input
+          id="age"
+          type="number"
+          value={enteredAge}
+          onChange={ageChangeHandler}
+        ></input>
         <Button type="submit">Add User</Button>
       </form>
     </Card>
