@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
-function AddUser() {
+
+const AddUser = (props) => {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+
   const addUserHandler = (event) => {
     event.preventDefault();
     if (
@@ -16,16 +19,18 @@ function AddUser() {
     if (+enteredAge < 1) {
       return;
     }
-    console.log(enteredUsername, enteredAge);
+    props.onAddUser(enteredUsername, enteredAge);
     setEnteredUsername("");
     setEnteredAge("");
   };
+
   const usernameChangeHandler = (event) => {
     setEnteredUsername(event.target.value);
   };
   const ageChangeHandler = (event) => {
     setEnteredAge(+event.target.value);
   };
+
   return (
     <Card className={classes.input}>
       <form onSubmit={addUserHandler}>
@@ -47,6 +52,6 @@ function AddUser() {
       </form>
     </Card>
   );
-}
+};
 
 export default AddUser;
